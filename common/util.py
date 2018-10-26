@@ -62,3 +62,21 @@ def most_similar(query, word_to_id, id_to_word, co_matrix, top=5):
         cnt += 1
         if cnt>=top:
             return
+
+def ppmi(C, verbose=False, eps=1e-8):
+    M = np.zeros_like(C, dtype=np.float32)
+    N = np.sum(C)
+    S = np.sum(C, axis=0)
+    total = C.shape[0]*C.shape[1]
+    cnt = 0
+
+    for i in range(C.shape[0]):
+        for j in range(C.shape[1]):
+            pmi = np.log2(C[i,j]*N / (S[i]*S[j])+eps)
+            M[i,j] = max(0, pmi)
+            cnt += 1
+            if verbose:
+                if cnt*100%total==0:
+                    print("%.1f%% done" % (100*cnt/total))
+
+    return M
