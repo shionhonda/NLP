@@ -8,7 +8,7 @@ from common.trainer import Trainer
 from common.optimizer import Adam
 from cbow import CBOW
 from common.util import create_contexts_target, to_cpu, to_gpu
-from datset import ptb
+from dataset import ptb
 
 window_size = 5
 hidden_size = 100
